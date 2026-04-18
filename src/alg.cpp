@@ -6,7 +6,7 @@
 using std::string;
 
 int getPriority(char opr) {
-  if (opr == '+' || opr == '-') 
+  if (opr == '+' || opr == '-')
   return 1;
   if (opr == '*' || opr == '/')
   return 2;
@@ -38,26 +38,26 @@ string infx2pstfx(const string& inf) {
       result += ' ';
       i--;
     } else if (d == '(') {
-      stack.addToStack(d);
+      stack.push(d);
     } else if (d == ')') {
-      while (!stack.stackIsEmpty() && stack.lookAtTop() != '(') {
-        result += stack.takeFromStack();
+      while (!stack.is_empty() && stack.top() != '(') {
+        result += stack.pop();
         result += ' ';
       }
-      if (!stack.stackIsEmpty() && stack.lookAtTop() == '(') {
-        stack.takeFromStack();
+      if (!stack.is_empty() && stack.top() == '(') {
+        stack.pop();
       }
     } else if (isOperator(d)) {
-      while (!stack.stackIsEmpty() &&
-        getPriority(stack.lookAtTop()) >= getPriority(d)) {
-        result += stack.takeFromStack();
+      while (!stack.is_empty() &&
+        getPriority(stack.top()) >= getPriority(d)) {
+        result += stack.pop();
         result += ' ';
       }
-      stack.addToStack(d);
+      stack.push(d);
     }
   }
-  while (!stack.stackIsEmpty()) {
-    result += stack.takeFromStack();
+  while (!stack.is_empty()) {
+    result += stack.pop();
     result += ' ';
   }
   if (!result.empty() && result.back() == ' ') {
@@ -77,14 +77,14 @@ int eval(const std::string& pref) {
         number = number * 10 + (post[i] - '0');
         i++;
       }
-      stack.addToStack(number);
+      stack.push(number);
       i--;
     } else if (isOperator(d)) {
-      int b = stack.takeFromStack();
-      int a = stack.takeFromStack();
+      int b = stack.pop();
+      int a = stack.pop();
       int result = doOperation(a, b, d);
-      stack.addToStack(result);
+      stack.push(result);
     }
   }
-  return stack.takeFromStack();
+  return stack.pop();
 }
