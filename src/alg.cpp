@@ -14,7 +14,7 @@ int getPriority(char opr) {
 }
 
 bool isOperator(char d) {
-  return d == '+'  d == '-'  d == '*' || d == '/';
+  return d == '+' || d == '-' || d == '*' || d == '/';
 }
 
 int doOperation(int a, int b, char opr) {
