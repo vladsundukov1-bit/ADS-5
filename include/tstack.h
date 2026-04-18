@@ -6,6 +6,7 @@ template<typename T, int size>
 class TStack {
  private:
   static const int k = size;
+  std::array<T, k> data;
   T data[k];
   int top_index;
 
