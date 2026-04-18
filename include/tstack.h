@@ -4,7 +4,31 @@
 
 template<typename T, int size>
 class TStack {
-  // добавьте код стека
+  public:
+    TStack() : top_index(-1) {}
+    void push(T value) {
+        if (top_index < size - 1) {
+            data[++top_index] = value;
+        }
+    }
+
+    T pop() {
+        if (top_index >= 0) {
+            return data[top_index--];
+        }
+        return T();
+    }
+
+    T top() {
+        if (top_index >= 0) {
+            return data[top_index];
+        }
+        return T();
+    }
+
+    bool is_empty() {
+        return top_index == -1;
+    }
 };
 
 #endif  // INCLUDE_TSTACK_H_
