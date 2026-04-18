@@ -4,7 +4,11 @@
 
 template<typename T, int size>
 class TStack {
-  public:
+private:
+    T data[size];
+    int top_index;
+
+public:
     TStack() : top_index(-1) {}
     void push(T value) {
         if (top_index < size - 1) {
